@@ -178,6 +178,34 @@ import ndoLogo from '../assets/ndo-logo.png';
       </div>
     </section>
 
+    <!-- GALLERY -->
+    <section class="gallery" id="gallery">
+      <div class="container">
+        <p class="section-label center">Gallery</p>
+        <h2 class="center">On the <span>Pitch</span></h2>
+        <div class="gallery-grid">
+          <div class="gallery-item tall">
+            <div class="gallery-placeholder"></div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder"></div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder"></div>
+          </div>
+          <div class="gallery-item wide">
+            <div class="gallery-placeholder"></div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder"></div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- CONTACT -->
     <section class="contact" id="contact">
       <div class="container">
@@ -318,7 +346,7 @@ import ndoLogo from '../assets/ndo-logo.png';
     min-height: 100vh;
     background: var(--dark);
     display: flex; align-items: center;
-    padding: 120px 40px 80px;
+    padding: 180px 40px 150px;
     position: relative;
     overflow: hidden;
   }
@@ -516,6 +544,41 @@ import ndoLogo from '../assets/ndo-logo.png';
   .author-name { font-weight: 700; font-size: 0.95rem; color: var(--white); }
   .author-role { font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-top: 2px; }
 
+  /* ---- GALLERY ---- */
+  .gallery { padding: 100px 0; background: var(--white); }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 260px;
+    gap: 16px;
+    margin-top: 48px;
+  }
+
+  .gallery-item { border-radius: var(--radius); overflow: hidden; }
+  .gallery-item.tall { grid-row: span 2; }
+  .gallery-item.wide { grid-column: span 2; }
+
+  .gallery-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, var(--gray) 0%, #e8e0f5 50%, var(--gray) 100%);
+    background-size: 200% 200%;
+    animation: shimmer 2.4s ease-in-out infinite;
+    position: relative;
+  }
+  .gallery-placeholder::after {
+    content: '📷';
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; opacity: 0.3;
+  }
+
+  @keyframes shimmer {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
   /* ---- CONTACT ---- */
   .contact { padding: 100px 0; background: var(--gray); }
 
@@ -571,20 +634,27 @@ import ndoLogo from '../assets/ndo-logo.png';
   @media (max-width: 900px) {
     nav { padding: 16px 24px; }
     nav ul { display: none; }
-    .hero { padding: 100px 24px 60px; }
+    .hero { padding: 130px 24px 60px; }
     .hero-badge { right: 24px; bottom: 40px; width: 90px; height: 90px; }
     .badge-number { font-size: 1.8rem; }
     .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
     .services-grid { grid-template-columns: 1fr; }
     .testimonials-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 200px; }
+    .gallery-item.tall { grid-row: span 1; }
+    .gallery-item.wide { grid-column: span 2; }
     .form-row { grid-template-columns: 1fr; }
     .contact-form { padding: 28px; }
   }
 
   @media (max-width: 600px) {
     .hero h1 { font-size: 3.5rem; }
-    .hero-cta { flex-direction: column; }
+    .hero-content { text-align: center; }
+    .hero-sub { margin-left: auto; margin-right: auto; }
+    .hero-cta { flex-direction: column; align-items: center; }
     .about-visual { grid-template-columns: 1fr; }
     .about-card.accent { grid-column: span 1; }
+    .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+    .gallery-item.wide { grid-column: span 1; }
   }
 </style>
