@@ -17,17 +17,22 @@ import ndoLogo from '../assets/ndo-logo.png';
   <body>
 
     <!-- NAV -->
-    <nav>
+    <nav id="main-nav">
       <a href="#" class="logo-link">
         <img src={ndoLogo.src} alt="NDO Futbol" class="nav-logo" />
       </a>
-      <ul>
+      <ul id="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#testimonials">Testimonials</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <a href="#contact" class="btn btn-nav">Book a Session</a>
+      <a href="#contact" class="btn btn-nav nav-cta">Book a Session</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </nav>
 
     <!-- HERO -->
@@ -267,6 +272,25 @@ import ndoLogo from '../assets/ndo-logo.png';
         <p class="footer-copy">&copy; 2026 NDO Futbol. All rights reserved.</p>
       </div>
     </footer>
+
+    <script>
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.getElementById('nav-links');
+
+      hamburger.addEventListener('click', () => {
+        const open = navLinks.classList.toggle('open');
+        hamburger.classList.toggle('open', open);
+        hamburger.setAttribute('aria-expanded', String(open));
+      });
+
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          hamburger.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+        });
+      });
+    </script>
 
   </body>
 </html>
@@ -631,9 +655,45 @@ import ndoLogo from '../assets/ndo-logo.png';
   .footer-copy { color: rgba(255,255,255,0.3); font-size: 0.8rem; }
 
   /* ---- RESPONSIVE ---- */
+  /* ---- HAMBURGER ---- */
+  .hamburger {
+    display: none;
+    flex-direction: column; justify-content: center; align-items: center; gap: 5px;
+    width: 40px; height: 40px;
+    background: transparent; border: none; cursor: pointer; padding: 4px;
+    z-index: 200;
+  }
+  .hamburger span {
+    display: block; width: 24px; height: 2px;
+    background: var(--white); border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+    transform-origin: center;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
   @media (max-width: 900px) {
     nav { padding: 16px 24px; }
-    nav ul { display: none; }
+    .nav-cta { display: none; }
+    .hamburger { display: flex; }
+
+    #nav-links {
+      display: flex; flex-direction: column; align-items: center; gap: 0;
+      position: fixed; top: 0; left: 0; right: 0;
+      background: rgba(26,10,59,0.98);
+      backdrop-filter: blur(12px);
+      padding: 100px 24px 40px;
+      transform: translateY(-100%);
+      transition: transform 0.35s ease;
+      z-index: 150;
+    }
+    #nav-links.open { transform: translateY(0); }
+    #nav-links li { width: 100%; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    #nav-links li:last-child { border-bottom: none; }
+    #nav-links li a { display: block; padding: 18px 0; font-size: 1.1rem; color: var(--white); }
+    #nav-links li a:hover { color: var(--yellow); }
+
     .hero { padding: 130px 24px 60px; }
     .hero-badge { right: 24px; bottom: 40px; width: 90px; height: 90px; }
     .badge-number { font-size: 1.8rem; }
